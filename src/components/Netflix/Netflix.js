@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import logo from '../../assets/netflix-logo.svg';
+import netflixOriginals from '../../assets/netflix-originals.json';
+import trendingNow from '../../assets/trending-now.json';
 import AppBar from '../AppBar/AppBar';
 import AppLogo from '../AppLogo/AppLogo';
+import Filter from '../Filter/Filter';
 import Greeting from '../Greeting/Greeting';
 import LoginButton from '../LoginButton/LoginButton';
 import LogoutButton from '../LogoutButton/LogoutButton';
 import NavItem from '../NavItem/NavItem';
+import PosterList from '../PosterList/PosterList';
 import './Netflix.css';
 
 /**
@@ -67,6 +71,17 @@ export default class Netflix extends Component {
         </AppBar>
         <main>
           <Greeting username={this.state.username} />
+          <br />
+          <Filter filter={this.filter} />
+          <PosterList
+            title="netflix originals"
+            posters={netflixOriginals.filter(this.filterByName)}
+          />
+          <PosterList
+            title="trending now"
+            posters={trendingNow.filter(this.filterByName)}
+          />
+          <PosterList title="empty list" posters={[]} />
         </main>
       </>
     );

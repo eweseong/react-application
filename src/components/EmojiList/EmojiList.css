@@ -1,0 +1,12 @@
+.emoji-list {
+  font-size: 3rem;
+}
+
+.emoji-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: .5rem;
+  border: 1px solid white;
+  text-decoration: none;
+}
