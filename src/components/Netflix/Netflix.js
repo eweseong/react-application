@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import logo from '../../assets/netflix-logo.svg';
-import netflixOriginals from '../../assets/netflix-originals.json';
-import trendingNow from '../../assets/trending-now.json';
+import HomeView from '../../routes/Home/Home';
+import MyListView from '../../routes/MyList/MyList';
+import ShowDetailView from '../../routes/ShowDetail/ShowDetail';
 import AppBar from '../AppBar/AppBar';
 import AppLogo from '../AppLogo/AppLogo';
-import Filter from '../Filter/Filter';
-import Greeting from '../Greeting/Greeting';
 import LoginButton from '../LoginButton/LoginButton';
 import LogoutButton from '../LogoutButton/LogoutButton';
 import NavItem from '../NavItem/NavItem';
-import PosterList from '../PosterList/PosterList';
 import './Netflix.css';
 
 /**
@@ -25,40 +24,30 @@ import './Netflix.css';
 // 03 - Composing component (Composition - has-a relationship)
 export default class Netflix extends Component {
   state = {
-    username: null,
-    filter: '',
+    user: null,
+    isLoggedIn: false,
   };
 
   login = () => {
     this.setState({
-      username: 'John',
+      username: 'johndoe',
+      isLoggedIn: true,
     });
   };
 
   logout = () => {
     this.setState({
       username: null,
+      isLoggedIn: false,
     });
-  };
-
-  filter = (value) => {
-    console.log(value);
-    this.setState({
-      filter: value,
-    });
-  };
-
-  filterByName = ({ name = '' }) => {
-    return name.toLowerCase().includes(this.state.filter.toLowerCase());
   };
 
   render() {
-    const button =
-      this.state.username === null ? (
-        <LoginButton login={this.login} />
-      ) : (
-        <LogoutButton logout={this.logout} />
-      );
+    const button = this.state.isLoggedIn ? (
+      <LogoutButton logout={this.logout} />
+    ) : (
+      <LoginButton login={this.login} />
+    );
 
     return (
       <>
@@ -70,18 +59,17 @@ export default class Netflix extends Component {
           {button}
         </AppBar>
         <main>
-          <Greeting username={this.state.username} />
-          <br />
-          <Filter filter={this.filter} />
-          <PosterList
-            title="netflix originals"
-            posters={netflixOriginals.filter(this.filterByName)}
-          />
-          <PosterList
-            title="trending now"
-            posters={trendingNow.filter(this.filterByName)}
-          />
-          <PosterList title="empty list" posters={[]} />
+          <Switch>
+            <Route path="/" exact>
+              <HomeView {...this.state} />
+            </Route>
+            <Route path="/myList" exact>
+              <MyListView {...this.state} />
+            </Route>
+            <Route path="/shows/:id/:name?" exact>
+              <ShowDetailView {...this.state} />
+            </Route>
+          </Switch>
         </main>
       </>
     );
