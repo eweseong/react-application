@@ -1,15 +1,25 @@
-import React from 'react';
-import netflixOriginals from '../../assets/netflix-originals.json';
-import trendingNow from '../../assets/trending-now.json';
+import React, { Component } from 'react';
 import Greeting from '../../components/Greeting/Greeting';
 import PosterList from '../../components/PosterList/PosterList';
+import withLoading from '../../components/withLoading/withLoading';
+import ShowService from '../../services/showService';
 
-export default function Home(props) {
-  return (
-    <div className="home-page">
-      <Greeting username={props.username} />
-      <PosterList title="netflix originals" posters={netflixOriginals} />
-      <PosterList title="trending now" posters={trendingNow} />
-    </div>
-  );
+const PosterListWithLoader = withLoading(PosterList);
+
+export default class Home extends Component {
+  render() {
+    return (
+      <div className="home-page">
+        <Greeting username={this.props.username} />
+        <PosterListWithLoader
+          title="netflix originals"
+          load={ShowService.getNetflixOriginals}
+        />
+        <PosterListWithLoader
+          title="trending now"
+          load={ShowService.getTrendingNow}
+        />
+      </div>
+    );
+  }
 }
