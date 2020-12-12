@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import './ShowDetail.css';
+import styles from './ShowDetail.module.css';
 
 class ShowDetail extends Component {
   render() {
@@ -38,7 +39,7 @@ class ShowDetail extends Component {
           <span className="show-detail__date">Release date: {date}</span>
         </p>
         <p className="show-detail__overview">{overview}</p>
-        <button className="btn btn--primary show-detail__button" type="button">
+        <button className={`btn btn--primary ${styles.btn}`} type="button">
           Play
         </button>
         <button className="btn show-detail__button" type="button">

@@ -1,3 +1,6 @@
+$border-color: white;
+$background-color: black;
+
 main {
   padding: 1rem 2rem;
   text-align: left;
@@ -5,26 +8,26 @@ main {
 
 .btn {
   padding: 0.5rem 1rem;
-  border: 1px solid white;
+  border: 1px solid $border-color;
   border-radius: 4px;
   color: white;
-  background-color: black;
+  background-color: $background-color;
   cursor: pointer;
-}
 
-.btn:focus {
-  outline: none;
-}
+  &:focus {
+    outline: none;
+  }
 
-.btn:hover {
-  outline: none;
-  border: 1px solid black;
-  color: black;
-  background-color: white;
-}
+  &:hover {
+    outline: none;
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
 
-.btn + .btn {
-  margin-left: 0.5rem;
+  + .btn {
+    margin-left: 0.5rem;
+  }
 }
 
 .btn--primary,

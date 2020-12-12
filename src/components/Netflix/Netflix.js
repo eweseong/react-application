@@ -9,7 +9,7 @@ import AppLogo from '../AppLogo/AppLogo';
 import LoginButton from '../LoginButton/LoginButton';
 import LogoutButton from '../LogoutButton/LogoutButton';
 import NavItem from '../NavItem/NavItem';
-import './Netflix.css';
+import './Netflix.scss';
 
 /**
  * Components let you split the UI into independent, reusable pieces, and think

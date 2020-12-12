@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
+import withTracker from '../withTracker/withTracker';
 
-export default function Greeting({ username = '' }) {
-  return <p>Welcome {username}!</p>;
+class Greeting extends Component {
+  render() {
+    const { username = '', track } = this.props;
+    return <p onMouseOver={track}>Welcome {username}!</p>;
+  }
 }
+
+export default withTracker(Greeting);
