@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import logo from '../../assets/netflix-logo.svg';
+import UserContext from '../../contexts/UserContext';
 import HomeView from '../../routes/Home/Home';
 import MyListView from '../../routes/MyList/MyList';
 import ShowDetailView from '../../routes/ShowDetail/ShowDetail';
@@ -31,8 +32,9 @@ export default class Netflix extends Component {
 
   login = () => {
     this.setState({
-      username: 'johndoe',
-      profileImage: 'profileImage',
+      username: 'Tony',
+      profileImage:
+        'https://www.airasiafoundation.com/wp-content/uploads/2015/08/Trustee_TonyFernandes.png',
       isLoggedIn: true,
     });
   };
@@ -69,7 +71,13 @@ export default class Netflix extends Component {
      * Creates a global state object that is accessible anywhere
      */
     return (
-      <>
+      // provide context value
+      <UserContext.Provider
+        value={{
+          username: this.state.username,
+          profileImage: this.state.profileImage,
+        }}
+      >
         <AppBar>
           <AppLogo logo={logo} />
           <NavItem path="/">Home</NavItem>
@@ -80,19 +88,17 @@ export default class Netflix extends Component {
         <main>
           <Switch>
             <Route path="/" exact>
-              <HomeView {...this.state} />
-              {/* the spread syntax above is equivalent to the syntax below */}
-              {/* <HomeView username={null} profileImage={null} isLoggedIn={false} /> */}
+              <HomeView />
             </Route>
             <Route path="/myList" exact>
-              <MyListView {...this.state} />
+              <MyListView />
             </Route>
             <Route path="/shows/:id/:name?" exact>
-              <ShowDetailView {...this.state} />
+              <ShowDetailView />
             </Route>
           </Switch>
         </main>
-      </>
+      </UserContext.Provider>
     );
   }
 }

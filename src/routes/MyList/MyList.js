@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import UserContext from '../../contexts/UserContext';
 
 /**
  * Props drilling could be tedious and ugly if it is going through multiple layers,
@@ -13,41 +14,38 @@ import React from 'react';
  *            |
  *            | - Avatar (data needed here)
  */
-export default function MyList(props) {
+export default function MyList() {
   return (
     <div className="my-list">
       My List <br />
       <br />
-      <MyListContainer
-        username={props.username}
-        avatarImage={props.avatarImage}
-      />
+      <MyListContainer />
     </div>
   );
 }
 
-function MyListContainer(props) {
+function MyListContainer() {
   return (
     <div className="my-list__container">
-      <MyListBody username={props.username} avatarImage={props.avatarImage} />
+      <MyListBody />
     </div>
   );
 }
 
-function MyListBody(props) {
+function MyListBody() {
   return (
     <div className="my-list__body">
-      <Avatar username={props.username} avatarImage={props.avatarImage} />
+      <Avatar />
     </div>
   );
 }
 
-function Avatar({ username, avatarImage }) {
-  // fetch something from context (Context API)
-  // fetch from global state (Global State)
+function Avatar() {
+  const user = useContext(UserContext);
+  const { username, profileImage: avatarImage } = user;
   return (
     <div className="avatar">
-      <img src={avatarImage} alt="profile" />
+      {avatarImage && <img src={avatarImage} alt="profile" />}
       <p>{username && `(${username})`}</p>
     </div>
   );
