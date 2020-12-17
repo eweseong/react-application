@@ -24,19 +24,29 @@ import './Netflix.scss';
 // 01 - Class Components
 // 03 - Composing component (Composition - has-a relationship)
 export default class Netflix extends Component {
-  state = {
-    username: null,
-    profileImage: null,
-    isLoggedIn: false,
-  };
+  // window.localStorage are stored permanent unless remove explicitly
+  // window.sessionStorage are stored per session (until tab is closed)
+  // both storages stored values as STRING and returns them as STRING
+
+  constructor() {
+    super();
+    const savedUser = window.localStorage.getItem('user');
+    this.state = JSON.parse(savedUser) || {
+      username: null,
+      profileImage: null,
+      isLoggedIn: false,
+    };
+  }
 
   login = () => {
-    this.setState({
+    const user = {
       username: 'Tony',
       profileImage:
         'https://www.airasiafoundation.com/wp-content/uploads/2015/08/Trustee_TonyFernandes.png',
       isLoggedIn: true,
-    });
+    };
+    this.setState(user);
+    window.localStorage.setItem('user', JSON.stringify(user));
   };
 
   logout = () => {
